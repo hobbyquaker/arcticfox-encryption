@@ -1,0 +1,34 @@
+{
+  "name": "arcticfox-encryption",
+  "version": "1.0.0",
+  "description": "Encode and Decode ArcticFox Config Files (.afc)",
+  "main": "index.js",
+  "scripts": {
+    "test": "camo-purge ; xo --space 4 --ignore test.js && mocha test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hobbyquaker/arcticfox-encryption.git"
+  },
+  "keywords": [
+    "vape",
+    "battery",
+    "mod",
+    "arcticfox",
+    "config",
+    "encryption",
+    "decryption"
+  ],
+  "author": "Sebastian Raff <hq@ccu.io>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/hobbyquaker/arcticfox-encryption/issues"
+  },
+  "homepage": "https://github.com/hobbyquaker/arcticfox-encryption#readme",
+  "devDependencies": {
+    "camo-purge": "^1.0.2",
+    "mocha": "^3.4.2",
+    "should": "^11.2.1",
+    "xo": "^0.18.2"
+  }
+}
