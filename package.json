@@ -30,9 +30,9 @@
   },
   "homepage": "https://github.com/hobbyquaker/arcticfox-encryption#readme",
   "devDependencies": {
-    "camo-purge": "^1.0.2",
-    "mocha": "^3.4.2",
-    "should": "^11.2.1",
-    "xo": "^0.18.2"
+    "camo-purge": "latest",
+    "mocha": "latest",
+    "should": "latest",
+    "xo": "latest"
   }
 }
