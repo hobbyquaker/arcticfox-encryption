@@ -10,6 +10,10 @@
     "type": "git",
     "url": "git+https://github.com/hobbyquaker/arcticfox-encryption.git"
   },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "engineStrict": true,
   "keywords": [
     "vape",
     "battery",
