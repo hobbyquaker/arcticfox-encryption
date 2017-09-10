@@ -1,17 +1,22 @@
 // https://github.com/dotnet/coreclr/blob/master/src/inc/random.h
+// http://referencesource.microsoft.com/#mscorlib/system/random.cs
+
+const INT32MIN = -0x80000000;
+const INT32MAX = 0x7FFFFFFF;
+
+const MSEED = 161803398;
+const MBIG = INT32MAX;
+
 class DotNetRandom {
     constructor(seed) {
-        this.MSEED = 161803398;
-        this.MBIG = 2147483647;
         this.SeedArray = new Array(55).fill(0);
 
         let ii;
         let mj;
         let mk;
 
-        const subtraction = (seed === -2147483648) ? this.MBIG : Math.abs(seed);
-
-        mj = this.MSEED - subtraction;
+        const substraction = (seed === INT32MIN) ? INT32MAX : Math.abs(seed);
+        mj = MSEED - substraction;
 
         this.SeedArray[55] = mj;
 
@@ -21,7 +26,7 @@ class DotNetRandom {
             this.SeedArray[ii] = mk;
             mk = mj - mk;
             if (mk < 0) {
-                mk += this.MBIG;
+                mk += MBIG;
             }
             mj = this.SeedArray[ii];
         }
@@ -29,9 +34,9 @@ class DotNetRandom {
         for (let k = 1; k < 5; k++) {
             for (let i = 1; i < 56; i++) {
                 /* eslint-disable no-mixed-operators */
-                this.SeedArray[i] -= this.SeedArray[1 + (i + 30) % 55];
+                this.SeedArray[i] = (this.SeedArray[i] - this.SeedArray[1 + (i + 30) % 55]) & 0xFFFFFFFF;
                 if (this.SeedArray[i] < 0) {
-                    this.SeedArray[i] += this.MBIG;
+                    this.SeedArray[i] += MBIG;
                 }
             }
         }
@@ -53,11 +58,11 @@ class DotNetRandom {
 
         retVal = this.SeedArray[locINext] - this.SeedArray[locINextp];
 
-        if (retVal === this.MBIG) {
+        if (retVal === MBIG) {
             retVal--;
         }
         if (retVal < 0) {
-            retVal += this.MBIG;
+            retVal += MBIG;
         }
 
         this.SeedArray[locINext] = retVal;
@@ -70,9 +75,7 @@ class DotNetRandom {
 
     nextBytes(buf) {
         for (let i = 0; i < buf.length; i++) {
-            const c = this.internalSample() % 256;
-			// Console.log(c);
-            buf[i] = c;
+            buf[i] = this.internalSample() % 256;
         }
     }
 
@@ -95,6 +98,7 @@ class ArcticfoxEncryption {
 
         const initialKey = this.readKey(keyBytes);
         const table = this.createTable(initialKey);
+
         const result = Buffer.alloc(buf.length - keyBytes.length);
 
         for (let i = 0; i < result.length; i++) {
