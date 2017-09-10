@@ -1,10 +1,11 @@
 {
   "name": "arcticfox-encryption",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Encode and Decode ArcticFox Config Files (.afc)",
   "main": "index.js",
   "scripts": {
-    "test": "camo-purge ; xo --space 4 --ignore test.js && mocha test.js"
+    "test": "camo-purge ; xo --space 4 --ignore test.js && mocha test.js",
+    "testonly": "mocha test.js"
   },
   "repository": {
     "type": "git",
